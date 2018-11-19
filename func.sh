@@ -26,5 +26,9 @@ Aborting."
   fi
 }
 
-main $1
+if [ "$Http_Path" != "" ]; then
+	main "https:/"$Http_Path
+else
+	main $1
+fi
 
