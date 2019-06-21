@@ -1,2 +1,2 @@
 DOCKER_IMAGE=rss-gram
-TEST_FUNC=https://web.stagram.com/rss/n/alliestrasza_
+TEST_FUNC=alliestrasza_

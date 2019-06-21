@@ -4,8 +4,8 @@ set -- "${1:-$(</dev/stdin)}" "${@:2}"
 
 main() {
   check_args "$@"
-  local feed_url=$1
-  HTTP_CODE=$(curl -s -o /tmp/feed -w "%{http_code}" $feed_url)
+  local feed_url=$(echo $1| sed "s/https\:\/\/web\.stagram.com\/rss\/n\///")
+  HTTP_CODE=$(curl -s -o /tmp/feed -w "%{http_code}" https://queryfeed.net/instagram?q=$feed_url)
   if [ "$HTTP_CODE" == "200" ]; then
     cat /tmp/feed
   else
