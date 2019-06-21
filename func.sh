@@ -4,8 +4,9 @@ set -- "${1:-$(</dev/stdin)}" "${@:2}"
 
 main() {
   check_args "$@"
-  local feed_url=$(echo $1| sed "s/https\:\/\/web\.stagram.com\/rss\/n\///")
-  HTTP_CODE=$(curl -s -o /tmp/feed -w "%{http_code}" https://queryfeed.net/instagram?q=$feed_url)
+  local instagram_id=$(echo $1| sed "s/\///"| sed "s/web\.stagram.com\/rss\/n\///")
+  local feed_url=https://queryfeed.net/instagram?q=$instagram_id
+  HTTP_CODE=$(curl -s -o /tmp/feed -w "%{http_code}" $feed_url)
   if [ "$HTTP_CODE" == "200" ]; then
     cat /tmp/feed
   else
@@ -27,7 +28,7 @@ Aborting."
 }
 
 if [ "$Http_Path" != "" ]; then
-	main "https:/"$Http_Path
+	main $Http_Path
 else
 	main $1
 fi
